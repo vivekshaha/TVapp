@@ -10,22 +10,12 @@ import { State } from "../store";
 
 type ShowListPageProps = {
   shows: Show[];
-  showLoaded: (show: Show[]) => void;
+  // showLoaded: (show: Show[]) => void;
   query: string;
   setquery: (query: string) => void;
 };
 
-const ShowListPage: FC<ShowListPageProps> = ({
-  shows,
-  showLoaded,
-  query,
-  setquery,
-}) => {
-  useEffect(() => {
-    showSearch(query).then((show) => {
-      showLoaded(show);
-    });
-  }, [query]);
+const ShowListPage: FC<ShowListPageProps> = ({ shows, query, setquery }) => {
   // const shows = useSelector(showlistSelector);
 
   return (
@@ -48,7 +38,7 @@ const ShowListPage: FC<ShowListPageProps> = ({
 };
 
 const mapPropsToState = {
-  showLoaded: showLoadedAction,
+  // showLoaded: showLoadedAction,
   setquery: setqueryAction,
 };
 

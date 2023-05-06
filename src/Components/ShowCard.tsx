@@ -19,7 +19,7 @@ const ShowCard: FC<ShowCarProps> = ({ show }) => {
           <p>{show.summary}</p>
         </div>
         <Link
-          to="/show/1"
+          to={"/show/" + show.id}
           className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md"
         >
           View Details

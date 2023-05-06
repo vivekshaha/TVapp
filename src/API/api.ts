@@ -12,3 +12,11 @@ export function showSearch(keyword: string) {
       return showarr;
     });
 }
+export function showSingleSearch(id: number) {
+  return axios
+    .get<{ Show: Show }>("https://api.tvmaze.com/shows/" + id)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    });
+}

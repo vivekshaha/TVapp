@@ -1,6 +1,6 @@
 import { Action, AnyAction } from "@reduxjs/toolkit";
 import { Show } from "../Models/show";
-import { SET_QUERY, SHOW_LOADED } from "../actions/Show";
+import { SET_QUERY, SHOW_LOADED, SINGLE_SHOW_LOADED } from "../actions/Show";
 import { produce } from "immer";
 import { schema, normalize } from "normalizr";
 
@@ -25,6 +25,11 @@ export function showreducers(currentstate = State, action: AnyAction) {
     case SET_QUERY:
       return produce(currentstate, (draft) => {
         draft.query = action.payload;
+      });
+    case SINGLE_SHOW_LOADED:
+      const showObject = action.payload;
+      return produce(currentstate, (draft) => {
+        draft.show = { [showObject.id]: showObject };
       });
     default:
       return currentstate;

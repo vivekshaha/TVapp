@@ -13,3 +13,7 @@ export const showlistSelector = createSelector(
   showsStateSelector,
   (showsState) => Object.keys(showsState.show).map((id) => showsState.show[+id])
 );
+export const singleShowSelector = createSelector(
+  showsStateSelector,
+  (showsState) => showsState.show
+);
