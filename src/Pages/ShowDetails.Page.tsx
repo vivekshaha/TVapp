@@ -10,13 +10,13 @@ const ShowDetailPage: FC<WithRouterProps> = ({ params }) => {
   return (
     <div className="mt-2">
       <h2 className="text-4xl font-semibold tracking-wide">The Witcher</h2>
-      <div className="flex space-x-3 my-2 bg-gray-300 p-2 rounded-sm">
+      <div className="flex p-2 my-2 space-x-3 bg-gray-300 rounded-sm">
         <GenrePill name="Action" />
         <GenrePill name="Fiction" />
         <GenrePill name="Thriller" />
         <GenrePill name="Violence" />
       </div>
-      <div className="mt-2 flex">
+      <div className="flex mt-2">
         <img
           src="https://static.tvmaze.com/uploads/images/medium_portrait/423/1058422.jpg"
           alt=""
@@ -31,7 +31,7 @@ const ShowDetailPage: FC<WithRouterProps> = ({ params }) => {
             sorceress, and a young princess with a dangerous secret, the three
             must learn to navigate the increasingly volatile Continent together.
           </p>
-          <p className="mt-2 text-lg font-bold border border-gray-700 rounded-md px-2 py-1 max-w-max">
+          <p className="px-2 py-1 mt-2 text-lg font-bold border border-gray-700 rounded-md max-w-max">
             Rating: <span className="text-gray-700">9.5/10</span>
           </p>
         </div>
