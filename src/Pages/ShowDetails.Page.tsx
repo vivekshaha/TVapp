@@ -3,28 +3,45 @@ import CastCard from "../Components/CastCard";
 import GenrePill from "../Components/GenrePill";
 import withRouter, { WithRouterProps } from "../hocs/withRouter";
 import { createSelector } from "reselect";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { State } from "../store";
-import { Show } from "../Models/show";
-import { setShowIdAction, singleShowLoadeAction } from "../actions/Show";
-import { singleShowSelector } from "../selectors/show";
+import { Cast, Show } from "../Models/show";
+import {
+  ShowCastAction,
+  setShowIdAction,
+  singleShowLoadeAction,
+} from "../actions/Show";
+import { showCastSelector, singleShowSelector } from "../selectors/show";
+import { showCasts } from "../API/api";
 
 type ShowDetailPageProps = {
   show: Show;
   showId: (id: number) => void;
+  cast: Cast[];
 } & WithRouterProps;
 
-const ShowDetailPage: FC<ShowDetailPageProps> = ({ params, showId, show }) => {
+const ShowDetailPage: FC<ShowDetailPageProps> = ({
+  params,
+  showId,
+  show,
+  cast,
+}) => {
+  // console.log("cast", cast);
   const id = +params.show_id;
+  const dispatch = useDispatch();
   useEffect(() => {
     showId(id);
   }, [id]);
-
+  useEffect(() => {
+    showCasts(id).then((casts) => {
+      dispatch(ShowCastAction(casts));
+    });
+  }, [id]);
   if (!show) {
     return <div>...LOading...</div>;
   }
   // console.log(show);
-  const dat = show;
+  // const dat = show;
   // console.log(params.show_id);
 
   return (
@@ -64,54 +81,13 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({ params, showId, show }) => {
       <div className="mt-2">
         <h4 className="text-2xl font-semibold tracking-wide">Cast</h4>
         <div className="flex flex-wrap">
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/218/545468.jpg"
-            name="Henry Cavill"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/218/545472.jpg"
-            name="Freya Allan"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/218/545470.jpg"
-            name="Anya Chalotra"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/232/581040.jpg"
-            name="Mimi Ndiweni"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/218/545468.jpg"
-            name="Henry Cavill"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/218/545472.jpg"
-            name="Freya Allan"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/218/545470.jpg"
-            name="Anya Chalotra"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/232/581040.jpg"
-            name="Mimi Ndiweni"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/218/545468.jpg"
-            name="Henry Cavill"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/218/545472.jpg"
-            name="Freya Allan"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/218/545470.jpg"
-            name="Anya Chalotra"
-          />
-          <CastCard
-            avatarLink="https://static.tvmaze.com/uploads/images/medium_portrait/232/581040.jpg"
-            name="Mimi Ndiweni"
-          />
+          {cast && cast.length !== 0 ? (
+            cast.map((c) => (
+              <CastCard key={c.id} avatarLink={c.image.medium} name={c.name} />
+            ))
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
@@ -121,6 +97,7 @@ function mapStateToProps(state: State, ownShowProps: ShowDetailPageProps) {
   const id = ownShowProps.params.show_id;
   return {
     show: singleShowSelector(state)[+id],
+    cast: showCastSelector(state),
   };
 }
 const mapDispatchToProps = {
