@@ -1,6 +1,6 @@
 import { useEffect, useState, FC } from "react";
 import SearchBar from "../Components/SearchBar";
-import { showSearch } from "../API/api";
+import { showCasts, showSearch } from "../API/api";
 import { Show } from "../Models/show";
 import ShowCard from "../Components/ShowCard";
 import { connect } from "react-redux";
@@ -17,7 +17,7 @@ type ShowListPageProps = {
 
 const ShowListPage: FC<ShowListPageProps> = ({ shows, query, setquery }) => {
   // const shows = useSelector(showlistSelector);
-
+  // showCasts(343).then((dat) => console.log(dat));
   return (
     <div className="mt-2">
       <SearchBar
@@ -31,7 +31,11 @@ const ShowListPage: FC<ShowListPageProps> = ({ shows, query, setquery }) => {
           })}
         </div>
       ) : (
-        <div>Look for somesthisn else</div>
+        <div className="flex items-center justify-center h-screen">
+          <h1 className="text-4xl font-semibold tracking-wide">
+            Type Your Show to Know their Detail
+          </h1>
+        </div>
       )}
     </div>
   );

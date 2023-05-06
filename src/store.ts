@@ -12,6 +12,7 @@ export type State = ReturnType<typeof reducer>;
 function* rootSaga() {
   yield takeEvery(SET_QUERY, fetchshows);
   yield takeEvery(SET_SHOW_ID, fetchsingleshow);
+  // yield takeEvery(SET_SHOW_ID, fetchcast);
 }
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(

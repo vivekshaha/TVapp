@@ -8,3 +8,11 @@ export type Show = {
   };
   summary?: string;
 };
+
+export type Cast = {
+  name: string;
+  id: number;
+  image: {
+    medium?: string;
+  };
+};

@@ -4,13 +4,13 @@ const CastCard = ({
   avatarLink,
   name,
 }: {
-  avatarLink: string;
+  avatarLink?: string;
   name: string;
 }) => {
   return (
     <div className="p-1 m-1">
-      <img className="w-28 rounded-sm" src={avatarLink} alt="" />
-      <p className="text-gray-500 font-semibold">{name}</p>
+      <img className="rounded-sm w-28" src={avatarLink} alt="" />
+      <p className="font-semibold text-gray-500">{name}</p>
     </div>
   );
 };
