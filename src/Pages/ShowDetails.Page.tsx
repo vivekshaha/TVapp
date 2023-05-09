@@ -2,18 +2,13 @@ import { FC, useEffect } from "react";
 import CastCard from "../Components/CastCard";
 import GenrePill from "../Components/GenrePill";
 import withRouter, { WithRouterProps } from "../hocs/withRouter";
-import { createSelector } from "reselect";
 import { connect, useDispatch } from "react-redux";
 import { State } from "../store";
 import { Cast, Show } from "../Models/show";
-import {
-  ShowCastAction,
-  setShowIdAction,
-  singleShowLoadeAction,
-} from "../actions/Show";
+import { ShowCastAction, setShowIdAction } from "../actions/Show";
 import { showCastSelector, singleShowSelector } from "../selectors/show";
 import { showCasts } from "../API/api";
-
+// type ownProps = {} & WithRouterProps;
 type ShowDetailPageProps = {
   show: Show;
   showId: (id: number) => void;
@@ -68,7 +63,9 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
           className="object-cover object-center w-full rounded-t-md h-72"
         />
         <div className="ml-2">
-          <p>{show.summary}</p>
+          <p
+            dangerouslySetInnerHTML={{ __html: show.summary || "NOT SUMMARY" }}
+          ></p>
           <p className="px-2 py-1 mt-2 text-lg font-bold border border-gray-700 rounded-md max-w-max">
             Rating:{" "}
             <span className="text-gray-700">

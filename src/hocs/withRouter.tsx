@@ -14,7 +14,8 @@ export interface WithRouterProps {
 }
 
 const withRouter = <Props extends WithRouterProps>(
-  Component: React.ComponentType<Props>
+  Component: any
+  // React.ComponentType<Props>
 ) => {
   return (props: Omit<Props, keyof WithRouterProps>) => {
     const location = useLocation();
