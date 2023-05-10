@@ -2,18 +2,16 @@ import { FC, useEffect } from "react";
 import CastCard from "../Components/CastCard";
 import GenrePill from "../Components/GenrePill";
 import withRouter, { WithRouterProps } from "../hocs/withRouter";
-import { connect, useDispatch } from "react-redux";
+import { ConnectedProps, connect, useDispatch } from "react-redux";
 import { State } from "../store";
 import { Cast, Show } from "../Models/show";
 import { ShowCastAction, setShowIdAction } from "../actions/Show";
-import { showCastSelector, singleShowSelector } from "../selectors/show";
+import { showCastSelector, ShowSelector } from "../selectors/show";
 import { showCasts } from "../API/api";
-// type ownProps = {} & WithRouterProps;
-type ShowDetailPageProps = {
-  show: Show;
-  showId: (id: number) => void;
-  cast: Cast[];
-} & WithRouterProps;
+import { IMG } from "./ShowsList.Page";
+import { Link } from "react-router-dom";
+type ownProps = {} & WithRouterProps;
+type ShowDetailPageProps = ReduxProps & ownProps;
 
 const ShowDetailPage: FC<ShowDetailPageProps> = ({
   params,
@@ -24,28 +22,29 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
   // console.log("cast", cast);
   const id = +params.show_id;
   const dispatch = useDispatch();
+
   useEffect(() => {
     showId(id);
-  }, [id]);
-  useEffect(() => {
     showCasts(id).then((casts) => {
       dispatch(ShowCastAction(casts));
     });
   }, [id]);
   if (!show) {
-    return <div>...LOading...</div>;
+    return <div>...Loading...</div>;
   }
-  // console.log(show);
   // const dat = show;
-  // console.log(params.show_id);
+  // console.log();
 
   return (
     <div className="mt-2">
+      <Link to="/" className="bg-red-300">
+        Back
+      </Link>
       <h2 className="text-4xl font-semibold tracking-wide">{show.name}</h2>
       <div className="flex p-2 my-2 space-x-3 bg-gray-300 rounded-sm">
         <div></div>
-        {show.generes && show.generes.length == 0 ? (
-          show.generes.map((name) => {
+        {show.genres && show.genres.length != 0 ? (
+          show.genres.map((name) => {
             return (
               <>
                 <GenrePill name={name} key={name} />
@@ -58,7 +57,7 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
       </div>
       <div className="flex mt-2">
         <img
-          src={show.image?.medium}
+          src={show.image?.medium || IMG}
           alt=""
           className="object-cover object-center w-full rounded-t-md h-72"
         />
@@ -78,28 +77,25 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
       <div className="mt-2">
         <h4 className="text-2xl font-semibold tracking-wide">Cast</h4>
         <div className="flex flex-wrap">
-          {cast && cast.length !== 0 ? (
+          {cast &&
             cast.map((c) => (
-              <CastCard key={c.id} avatarLink={c.image.medium} name={c.name} />
-            ))
-          ) : (
-            <></>
-          )}
+              <CastCard key={c.id} avatarLink={c.image?.medium} name={c.name} />
+            ))}
         </div>
       </div>
     </div>
   );
 };
-function mapStateToProps(state: State, ownShowProps: ShowDetailPageProps) {
+function mapStateToProps(state: State, ownShowProps: ownProps) {
   const id = ownShowProps.params.show_id;
   return {
-    show: singleShowSelector(state)[+id],
+    show: ShowSelector(state)[+id],
     cast: showCastSelector(state),
   };
 }
 const mapDispatchToProps = {
   showId: setShowIdAction,
 };
-const conn = connect(mapStateToProps, mapDispatchToProps);
-
-export default withRouter(conn(ShowDetailPage));
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type ReduxProps = ConnectedProps<typeof connector>;
+export default withRouter(connector(ShowDetailPage));

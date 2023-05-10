@@ -1,7 +1,7 @@
 export type Show = {
   id: number;
   name: string;
-  generes: string[];
+  genres: string[];
   rating: { average?: number };
   image: {
     medium?: string;
