@@ -29,8 +29,20 @@ export function showreducers(currentstate = State, action: AnyAction) {
     case SHOW_LOADED:
       return produce(currentstate, (draft) => {
         const showSchema = new schema.Entity("shows");
-        const normalizedata = normalize(action.payload, [showSchema]);
+        const allshow = action.payload.map((i: any) => i.show);
+        console.log("allshow", allshow);
+        const normalizedata = normalize(allshow, [showSchema]);
         // console.log();
+        const CastSchema = new schema.Entity("cast");
+        const allcast = action.payload.map((i: any) => i.cast);
+        const rd = allcast.reduce((i: any, c: any) => {
+          return [...i, ...c];
+        }, []);
+        console.log("allcast", rd);
+
+        const normalizedatacast = normalize(rd, [CastSchema]);
+        console.log("this is cast indies the reduce", normalizedatacast);
+        // draft.cast = normalizedatacast.entities.cast;
         draft.loading = true;
 
         draft.show_query[draft.query] = normalizedata.result;

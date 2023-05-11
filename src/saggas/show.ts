@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
-import { showCasts, showSearch, showSingleSearch } from "../API/api";
+import { showCastsearch, showSingleSearch } from "../API/api";
 import { AnyAction } from "redux";
 import {
   ShowCastAction,
@@ -8,7 +8,7 @@ import {
 } from "../actions/Show";
 
 export function* fetchshows(action: AnyAction): Generator<any, any, any> {
-  const data = yield call(showSearch, action.payload);
+  const data = yield call(showCastsearch, action.payload);
   yield put(showLoadedAction(data));
 }
 export function* fetchsingleshow(action: AnyAction): Generator<any, any, any> {
