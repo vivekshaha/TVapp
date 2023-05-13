@@ -1,4 +1,4 @@
-import { Cast, Show } from "../Models/show";
+import { Cast, Show, showCast } from "../Models/show";
 
 export const SHOW_LOADED = "show loaded";
 
@@ -18,9 +18,9 @@ export const setqueryAction = (query: string) => ({
 
 export const SINGLE_SHOW_LOADED = "single show loaded";
 
-export const singleShowLoadeAction = (show: Show) => ({
+export const singleShowLoadeAction = (showcast: showCast) => ({
   type: SINGLE_SHOW_LOADED,
-  payload: show,
+  payload: showcast,
 });
 export const SHOW_CAST_LOADED = "single showccast  loaded";
 

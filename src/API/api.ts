@@ -29,17 +29,18 @@ export async function showCastsearch(keyword: string) {
     showCastArr.push(data);
     // console.log("this code is not running");
   }
-  console.log("this is showcase arrr", showCastArr);
+  // console.log("this is showcase arrr", showCastArr);
   const data = showCastArr;
   return data;
 }
-export function showSingleSearch(id: number) {
-  return axios
-    .get<{ Show: Show }>("https://api.tvmaze.com/shows/" + id)
-    .then((response) => {
-      return response.data;
-    });
+export async function showSingleSearch(id: number) {
+  const response = await axios.get<{ Show: Show }>(
+    "https://api.tvmaze.com/shows/" + id
+  );
+  const cast = await showCasts(id);
+  return { show: response.data, cast };
 }
+
 export async function showCasts(id: number) {
   const r = await axios.get<{ cast: Cast }[]>(
     "https://api.tvmaze.com/shows/" + id + "/cast"

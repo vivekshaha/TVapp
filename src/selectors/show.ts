@@ -19,7 +19,7 @@ export const show_querySelector = createSelector(
 );
 export const ShowSelector = createSelector(
   showsStateSelector,
-  (showsState) => showsState.show
+  (showsState) => showsState.showlist
 );
 export const showlistSelector = createSelector(
   ShowSelector,

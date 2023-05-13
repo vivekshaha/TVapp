@@ -1,63 +1,58 @@
-// import * as React from "react";
-// import Avatar from "@mui/material/Avatar";
-// import AvatarGroup from "@mui/material/AvatarGroup";
-
-// export default function GroupAvatars() {
-//   return (
-//     <AvatarGroup max={4}>
-//       <Avatar alt="Remy Sharp" />
-//       <Avatar alt="Travis Howard" />
-//       <Avatar alt="Cindy Baker" />
-//       <Avatar alt="Agnes Walker" />
-//       <Avatar alt="Trevor Henderson" />
-//     </AvatarGroup>
-//   );
-// }
-// MUI Code above
-
 import {
   AvatarGroup,
   AvatarGroupItem,
   AvatarGroupPopover,
-  partitionAvatarGroupItems,
   AvatarGroupProps,
+  makeStyles,
+  partitionAvatarGroupItems,
 } from "@fluentui/react-components";
 import * as React from "react";
+import { Cast } from "../Models/show";
+import { IMG } from "../Pages/ShowsList.Page";
 
-const names = [
-  "Johnie McConnell",
-  "Allan Munger",
-  "Erik Nason",
-  "Kristin Patterson",
-  "Daisy Phillips",
-  "Carole Poland",
-  "Carlos Slattery",
-  "Robert Tolbert",
-  "Kevin Sturgis",
-  "Charlotte Waltson",
-  "Elliot Woodward",
-];
+const useStyles = makeStyles({
+  root: {
+    display: "grid",
+    flexDirection: "column",
+    rowGap: "10px",
+  },
+});
 
-function AvatarGroups(props: Partial<AvatarGroupProps>) {
-  const { inlineItems, overflowItems } = partitionAvatarGroupItems({
-    items: names,
-  });
+type ga = {
+  item: Cast[];
+} & Partial<AvatarGroupProps>;
+const AvatarGroups: React.FC<ga> = ({ item }) => {
+  const styles = useStyles();
+  const partitionedItems = partitionAvatarGroupItems({ items: item });
 
   return (
-    <AvatarGroup {...props}>
-      {inlineItems.map((name) => (
-        <AvatarGroupItem name={name} key={name} />
-      ))}
+    <div className={styles.root}>
+      <AvatarGroup layout="stack" size={48}>
+        {partitionedItems.inlineItems.map((i) => (
+          <AvatarGroupItem
+            name={i.name}
+            key={i.id}
+            image={{
+              src: i.image?.medium || IMG,
+            }}
+          />
+        ))}
 
-      {overflowItems && (
-        <AvatarGroupPopover>
-          {overflowItems.map((name) => (
-            <AvatarGroupItem name={name} key={name} />
-          ))}
-        </AvatarGroupPopover>
-      )}
-    </AvatarGroup>
+        {partitionedItems.overflowItems && (
+          <AvatarGroupPopover size="large">
+            {partitionedItems.overflowItems.map((i) => (
+              <AvatarGroupItem
+                name={i.name}
+                key={i.id}
+                image={{
+                  src: i.image?.medium || IMG,
+                }}
+              />
+            ))}
+          </AvatarGroupPopover>
+        )}
+      </AvatarGroup>
+    </div>
   );
-}
-
+};
 export default AvatarGroups;

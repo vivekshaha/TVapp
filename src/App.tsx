@@ -6,7 +6,6 @@ import AvatarGroups from "./Components/GroupAvatars";
 function App() {
   return (
     <div className="max-w-5xl mx-auto">
-      <AvatarGroups />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ShowListPage />} />

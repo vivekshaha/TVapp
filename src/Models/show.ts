@@ -16,3 +16,8 @@ export type Cast = {
     medium?: string;
   };
 };
+
+export type showCast = {
+  show: Show;
+  cast: Cast[];
+};

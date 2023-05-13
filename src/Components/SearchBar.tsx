@@ -7,7 +7,7 @@ const SearchBar: FC<SearchBarProps> = (props) => {
     <div className="relative">
       <input
         {...props}
-        className="w-full px-2 py-1 border border-black rounded-full"
+        className="w-full h-10 px-2 py-1 border border-black rounded-full"
         type="text"
         placeholder="Search"
       />

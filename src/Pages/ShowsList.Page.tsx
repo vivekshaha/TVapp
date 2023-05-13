@@ -1,6 +1,6 @@
 import { useEffect, useState, FC } from "react";
 import SearchBar from "../Components/SearchBar";
-import { showCasts, showSearch } from "../API/api";
+import { showCasts } from "../API/api";
 import { Show } from "../Models/show";
 import ShowCard from "../Components/ShowCard";
 import { connect, ConnectedProps } from "react-redux";
@@ -22,7 +22,7 @@ type ShowListPageProps = {
 } & ReduxProps;
 
 const ShowListPage: FC<ShowListPageProps> = ({
-  shows,
+  showscast,
   query,
   setquery,
   loading,
@@ -30,7 +30,8 @@ const ShowListPage: FC<ShowListPageProps> = ({
   // const shows = useSelector(showlistSelector);
   // showCasts(343).then((dat) => console.log(dat));
 
-  // console.log(loading);
+  // console.log("this is on showlist page", showscast);
+
   return (
     <div className="mt-2">
       <SearchBar
@@ -38,11 +39,13 @@ const ShowListPage: FC<ShowListPageProps> = ({
         onChange={(event) => setquery(event.target.value)}
       />
       <div className="flex flex-wrap justify-center">
-        {!loading &&
-          shows &&
-          shows.map((show) => {
-            return <ShowCard key={show.id} show={show} />;
-          })}
+        {showscast.length != 0 ? (
+          showscast.map((i) => {
+            return <ShowCard key={i.show.id} show={i.show} cast={i.cast} />;
+          })
+        ) : (
+          <h1>this is expame</h1>
+        )}
       </div>
     </div>
   );
@@ -55,7 +58,7 @@ const mapPropsToState = {
 
 const mapStateToProps = (state: State) => {
   return {
-    shows: showlistSelector(state),
+    showscast: showlistSelector(state),
     query: QuerySelctor(state),
     loading: loadingSelector(state),
   };
