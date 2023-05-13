@@ -69,8 +69,9 @@ export function showreducers(currentstate = State, action: AnyAction) {
     case SINGLE_SHOW_LOADED:
       const showObject = action.payload;
       return produce(currentstate, (draft) => {
-        // draft.query = "";
-        console.log("showbojext", showObject);
+        draft.query = "";
+        draft.show_query[draft.query] = [];
+        // console.log("showbojext", showObject);
         draft.showlist[showObject.show.id] = showObject;
       });
     // case SHOW_CAST_LOADED:

@@ -33,18 +33,26 @@ const ShowListPage: FC<ShowListPageProps> = ({
   // console.log("this is on showlist page", showscast);
 
   return (
-    <div className="mt-2">
-      <SearchBar
-        value={query}
-        onChange={(event) => setquery(event.target.value)}
-      />
-      <div className="flex flex-wrap justify-center">
+    <div className="mb-4">
+      <div>
+        <SearchBar
+          value={query}
+          onChange={(event) => setquery(event.target.value)}
+          loading={loading}
+        />
+      </div>
+      <div className="flex flex-wrap justify-center ">
         {showscast.length != 0 ? (
           showscast.map((i) => {
             return <ShowCard key={i.show.id} show={i.show} cast={i.cast} />;
           })
         ) : (
-          <h1>this is expame</h1>
+          <div className="flex items-center justify-center object-cover w-screen h-screen mt-10 text-4xl text-center bg-no-repeat bg-cover rounded-3xl bg-hero ">
+            <h1 className="font-bold text-red-500 uppercase">
+              Search for Unlimited movies, <br />
+              TV shows and more
+            </h1>
+          </div>
         )}
       </div>
     </div>

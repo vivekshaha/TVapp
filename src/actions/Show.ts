@@ -22,12 +22,12 @@ export const singleShowLoadeAction = (showcast: showCast) => ({
   type: SINGLE_SHOW_LOADED,
   payload: showcast,
 });
-export const SHOW_CAST_LOADED = "single showccast  loaded";
+// export const SHOW_CAST_LOADED = "single showccast  loaded";
 
-export const ShowCastAction = (cast: Cast[]) => ({
-  type: SHOW_CAST_LOADED,
-  payload: cast,
-});
+// export const ShowCastAction = (cast: Cast[]) => ({
+//   type: SHOW_CAST_LOADED,
+//   payload: cast,
+// });
 
 export const SET_SHOW_ID = "set show id";
 
