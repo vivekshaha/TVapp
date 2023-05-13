@@ -7,7 +7,7 @@ type SearchBarProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 const SearchBar: FC<SearchBarProps> = (props) => {
   return (
-    <div className="fixed w-4/5">
+    <div>
       <input
         {...props}
         className="w-full h-10 px-2 py-1 border border-black rounded-full"
