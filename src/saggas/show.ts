@@ -1,11 +1,7 @@
-import { call, put, takeLatest } from "@redux-saga/core/effects";
+import { call, put } from "@redux-saga/core/effects";
 import { showCastsearch, showSingleSearch } from "../API/api";
 import { AnyAction } from "redux";
-import {
-  ShowCastAction,
-  showLoadedAction,
-  singleShowLoadeAction,
-} from "../actions/Show";
+import { showLoadedAction, singleShowLoadeAction } from "../actions/Show";
 
 export function* fetchshows(action: AnyAction): Generator<any, any, any> {
   const data = yield call(showCastsearch, action.payload);

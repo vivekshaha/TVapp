@@ -6,10 +6,7 @@ import { ConnectedProps, connect, useDispatch } from "react-redux";
 import { State } from "../store";
 import { BiArrowBack } from "react-icons/bi";
 import { Cast, Show } from "../Models/show";
-import {
-  //  ShowCastAction,
-  setShowIdAction,
-} from "../actions/Show";
+import { setShowIdAction } from "../actions/Show";
 import { showCastSelector, ShowSelector } from "../selectors/show";
 // import { showCasts } from "../API/api";
 import { IMG } from "./ShowsList.Page";
@@ -28,7 +25,7 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
   const id = +params.show_id;
   // const dispatch = useDispatch();
 
-  console.log(showcast);
+  // console.log(showcast);
   useEffect(() => {
     showId(id);
     // showCasts(id).then((casts) => {
